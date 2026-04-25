@@ -1,4 +1,4 @@
-# `beman::take_before`
+# beman.take_before: implementation of the `views::take_before` range adaptor
 
 <!--
 SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
@@ -11,7 +11,7 @@ SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 [P3220R2](https://wg21.link/P3220R2), conforming to
 [The Beman Standard](https://github.com/bemanproject/beman/blob/main/docs/beman_standard.md).
 
-**Implements**: `views::take_before` range adaptor.
+**Implements**: [`views::take_before` range adaptor (P3220R2)](https://wg21.link/P3220R2)
 
 **Status**: [Under development and not yet ready for production use.](https://github.com/bemanproject/beman/blob/main/docs/beman_library_maturity_model.md#under-development-and-not-yet-ready-for-production-use)
 
