@@ -10,11 +10,10 @@ List of usage examples for `beman.take_before`.
 
 Check basic `beman.take_before` library usages:
 
-* local [./take_before_compose.cpp](./take_before_compoese.cpp) or [sample.cpp@Compiler Explorer](https://godbolt.org/z/ebEzYc5fv)
-* local [./take_before_ntbs.cpp](./take_before_ntbs.cpp) or [std_vs_beman.cpp@Compiler Explorer](https://godbolt.org/z/P1c8x135M)
+* local [./take_before_compose.cpp](./take_before_compose.cpp) or [compose@Compiler Explorer](https://godbolt.org/z/7qY1Eo5Pv)
+* local [./take_before_ntbs.cpp](./take_before_ntbs.cpp) or [ntbs@Compiler Explorer](https://godbolt.org/z/vqrK7xrP3)
 * local [./take_before_direct_usage.cpp](./take_before_direct_usage.cpp) or [direct usage @Compiler Explorer](https://godbolt.org/z/9ad7qE7v9)
-* local [./take_before_as_default_projection.cpp](./take_before_as_default_projection.cpp)
-
+* local [./take_before_as_default_projection.cpp](./take_before_as_default_projection.cpp) or [projection @Compiler Explorer](https://godbolt.org/z/cfGYMda6n)
 
 ### Local Build and Run
 
