@@ -22,8 +22,8 @@ Check basic `beman.take_before` library usages:
 $ cmake --workflow --preset gcc-release
 
 # run sample.cpp
-$ ./build/examples/take_before_direct_usage 
-Original: 10 20 30 40 
-Take before 30: 10 20 
+$ ./build/examples/take_before_direct_usage
+Original: 10 20 30 40
+Take before 30: 10 20
 
 ```
