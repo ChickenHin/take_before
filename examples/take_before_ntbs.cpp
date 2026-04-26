@@ -11,7 +11,7 @@ int main() {
     const char* one_two = "One?Two";
 
     for (auto c : btb::views::take_before(one_two, '?')) {
-        std::cout << c;  // prints: One
+        std::cout << c; // prints: One
     }
     std::cout << "\n";
 }
