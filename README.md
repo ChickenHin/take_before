@@ -34,13 +34,13 @@ ranges without calculating their actual length.
 #include <vector>
 #include <iostream>
 
-namespace beman = beman::take_before;
+namespace bviews = beman::take_before::views;
 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5};
 
     // Take elements before the first occurrence of 3
-    for (int i : v | beman::views::take_before(3)) {
+    for (int i : v | bviews::take_before(3)) {
         std::cout << i << ' ';  // prints: 1 2
     }
 }
@@ -52,12 +52,12 @@ int main() {
 #include <beman/take_before/take_before.hpp>
 #include <iostream>
 
-namespace beman = beman::take_before;
+namespace bviews = beman::take_before::views;
 
 int main() {
     const char* one_two = "One?Two";
 
-    for (auto c : beman::views::take_before(one_two, '?')) {
+    for (auto c : bviews::take_before(one_two, '?')) {
         std::cout << c;  // prints: One
     }
 }
@@ -70,11 +70,11 @@ int main() {
 #include <vector>
 #include <algorithm>
 
-namespace beman = beman::take_before;
+namespace bviews = beman::take_before::views;
 
 int main() {
     std::vector<int> v = {10, 20, 30, 40};
-    auto result = beman::views::take_before(v, 30);
+    auto result = bviews::take_before(v, 30);
 
     // result contains: {10, 20}
 }
@@ -87,14 +87,14 @@ int main() {
 #include <ranges>
 #include <vector>
 
-namespace beman = beman::take_before;
+namespace bviews = beman::take_before::views;
 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5};
 
     auto result = v
         | std::views::transform([](int x) { return x * 2; })
-        | beman::views::take_before(6);  // {2, 4}
+        | bviews::take_before(6);  // {2, 4}
 }
 ```
 
