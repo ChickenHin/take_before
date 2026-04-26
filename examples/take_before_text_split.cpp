@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// examples/take_before_as_default_projection.cpp
+// examples/take_before_text_split.cpp
 
 // This example demonstrates the usage of beman::take_before in a range-printer.
 // Requires: range support (C++20).
