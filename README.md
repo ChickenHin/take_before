@@ -27,20 +27,25 @@ ranges without calculating their actual length.
 
 ## Usage
 
+Full runable examples can be found in `examples/` - please check [./examples/README.md](./examples/README.md).
+
 ### Basic Usage: Pipe Syntax
+
+-  [![Basic Usage@Compiler Explorer](https://img.shields.io/badge/Try%20it%20on%20Compiler%20Explorer-grey?logo=compilerexplorer&logoColor=67c52a)](https://godbolt.org/z/hf671dfof)
+
 
 ```cpp
 #include <beman/take_before/take_before.hpp>
 #include <vector>
 #include <iostream>
 
-namespace beman = beman::take_before;
+namespace btb = beman::take_before;
 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5};
 
     // Take elements before the first occurrence of 3
-    for (int i : v | beman::views::take_before(3)) {
+    for (int i : v | btb::views::take_before(3)) {
         std::cout << i << ' ';  // prints: 1 2
     }
 }
@@ -48,57 +53,46 @@ int main() {
 
 ### NTBS (Null-Terminated Byte String) - Primary Use Case
 
+-  [![NTBS @Compiler Explorer](https://img.shields.io/badge/Try%20it%20on%20Compiler%20Explorer-grey?logo=compilerexplorer&logoColor=67c52a)](https://godbolt.org/z/9ad7qE7v9)
+
 ```cpp
 #include <beman/take_before/take_before.hpp>
 #include <iostream>
 
-namespace beman = beman::take_before;
+namespace btb = beman::take_before;
 
 int main() {
     const char* one_two = "One?Two";
 
-    for (auto c : beman::views::take_before(one_two, '?')) {
+    for (auto c : btb::views::take_before(one_two, '?')) {
         std::cout << c;  // prints: One
     }
 }
 ```
 
-### Direct Usage with Ranges
-
-```cpp
-#include <beman/take_before/take_before.hpp>
-#include <vector>
-#include <algorithm>
-
-namespace beman = beman::take_before;
-
-int main() {
-    std::vector<int> v = {10, 20, 30, 40};
-    auto result = beman::views::take_before(v, 30);
-
-    // result contains: {10, 20}
-}
-```
-
 ### Composition with Other Views
+
+-  [![Composition @Compiler Explorer](https://img.shields.io/badge/Try%20it%20on%20Compiler%20Explorer-grey?logo=compilerexplorer&logoColor=67c52a)](https://godbolt.org/z/GdEsxzKdf)
 
 ```cpp
 #include <beman/take_before/take_before.hpp>
 #include <ranges>
 #include <vector>
+#include <print>
 
-namespace beman = beman::take_before;
+namespace btb = beman::take_before;
 
 int main() {
     std::vector<int> v = {1, 2, 3, 4, 5};
 
     auto result = v
         | std::views::transform([](int x) { return x * 2; })
-        | beman::views::take_before(6);  // {2, 4}
+        | btb::views::take_before(6);  // {2, 4}
+
+    //c++23
+    std::println("{}", result);
 }
 ```
-
-Full runnable examples can be found in [`examples/`](examples/).
 
 ## Dependencies
 
@@ -120,8 +114,10 @@ You can disable building tests by setting CMake option `BEMAN_TAKE_BEFORE_BUILD_
 | GCC        | 15-13   | C++26-C++20   | libstdc++         |
 | GCC        | 12-11   | C++23, C++20  | libstdc++         |
 | Clang      | 22-19   | C++26-C++20   | libstdc++, libc++ |
-| Clang      | 18-17   | C++26-C++20   | libc++            |
-| Clang      | 18-17   | C++20         | libstdc++         |
+| Clang      | 18      | C++26-C++20   | libc++            |
+| Clang      | 18      | C++23-C++20   | libstdc++         |
+| Clang      | 17      | C++26-C++20   | libc++            |
+| Clang      | 17      | C++20         | libstdc++         |
 | AppleClang | latest  | C++26-C++20   | libc++            |
 | MSVC       | latest  | C++23         | MSVC STL          |
 
