@@ -1,0 +1,87 @@
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+name: Build and Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    name: Ubuntu GCC
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install build tools
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build gcc g++
+
+      - name: Print installed software
+        shell: bash
+        run: |
+          gcc --version
+          g++ --version
+          cmake --version
+          ninja --version
+
+      - name: Configure CMake
+        shell: bash
+        run: |
+          cmake \
+            -S . \
+            -B build \
+            -G "Ninja Multi-Config" \
+            -DCMAKE_C_COMPILER=gcc \
+            -DCMAKE_CXX_COMPILER=g++ \
+            -DCMAKE_CXX_STANDARD=23 \
+            -DCMAKE_TOOLCHAIN_FILE=infra/cmake/gnu-toolchain.cmake \
+            -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=./infra/cmake/use-fetch-content.cmake
+
+      - name: Build
+        shell: bash
+        run: |
+          cmake --build build \
+            --config Debug \
+            --parallel \
+            --verbose
+
+      - name: Verify interface headers
+        shell: bash
+        run: |
+          verify_log=$(mktemp)
+
+          if cmake --build build \
+              --config Debug \
+              --target all_verify_interface_header_sets \
+              2>&1 | tee "$verify_log"; then
+            :
+          elif grep -q "unknown target.*all_verify_interface_header_sets" "$verify_log"; then
+            echo "No interface header sets to verify; skipping."
+          else
+            exit 1
+          fi
+
+      - name: Install
+        shell: bash
+        run: |
+          sudo mkdir -p /opt/beman.package
+
+          sudo cmake --install build \
+            --config Debug \
+            --prefix /opt/beman.package
+
+          ls -R /opt/beman.package
+
+      - name: Test
+        shell: bash
+        run: |
+          ctest \
+            --test-dir build \
+            --build-config Debug \
+            --output-on-failure
