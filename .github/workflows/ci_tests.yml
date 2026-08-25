@@ -3,13 +3,13 @@
 name: Continuous Integration Tests
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron: '58 13 * * 6'
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  # workflow_dispatch:
+  # schedule:
+  #   - cron: '58 13 * * 6'
 
 concurrency:
   group: ${{format('{0}:{1}', github.repository, github.ref)}}
